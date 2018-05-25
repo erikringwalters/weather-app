@@ -3,13 +3,15 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AddCityComponent } from './add-city/add-city.component';
-import { ListCitiesComponent } from './list-cities/list-cities.component';
+import { CityDetailComponent } from './city-detail/city-detail.component';
+import { CitiesComponent } from './cities/cities.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddCityComponent,
-    ListCitiesComponent
+    CityDetailComponent,
+    CitiesComponent
   ],
   imports: [
     BrowserModule
