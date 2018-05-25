@@ -3,6 +3,7 @@ import { City } from '../city';
 import { CITIES } from '../mock-cities'
 import { CityService } from '../city.service';
 
+
 @Component({
   selector: 'app-cities',
   templateUrl: './cities.component.html',
@@ -29,6 +30,7 @@ export class CitiesComponent implements OnInit {
   }
 
   getCities(): void {
-    this.cities = this.cityService.getCities();
+    this.cityService.getCities()
+      .subscribe(cities => this.cities = cities);
   }
 }
