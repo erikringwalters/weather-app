@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { City } from '../city';
+import { CityService } from '../city.service'
 
 @Component({
   selector: 'app-city-detail',
@@ -13,5 +14,10 @@ export class CityDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
+
+
+
+
 }
