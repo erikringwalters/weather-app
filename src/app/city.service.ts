@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { url } from 'inspector';
 import { Weather, CurrentWeather } from './CurrentWeather';
+import * as _ from 'underscore';
 
 
 @Injectable({
@@ -23,6 +24,12 @@ export class CityService {
 
   getCity(): City {
     return this.city;
+  }
+
+  getCityByName(name: string): City {
+    let matchedCity: City = _.filter(CITIES, function(city: City) {return city.name.toLowerCase().includes(name.toLowerCase())});
+    if(matchedCity) {return matchedCity[0];}
+    return null;
   }
 
   getCities(): Observable<City[]> {

@@ -3,6 +3,8 @@ import { City } from '../city';
 import { CITIES } from '../mock-cities'
 import { CityService } from '../city.service';
 import { WeatherService } from '../weather.service';
+import { switchMap } from 'rxjs/operators';
+import { ParamMap, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cities',
@@ -12,6 +14,7 @@ import { WeatherService } from '../weather.service';
 
 export class CitiesComponent implements OnInit {
 
+  route: ActivatedRoute;
   cities = CITIES;
 
   selectedCity: City;
@@ -24,8 +27,8 @@ export class CitiesComponent implements OnInit {
   ngOnInit() {
     //Selects random city out of array
     this.selectedCity = this.cities[Math.floor(Math.random() * this.cities.length)];
-
     this.getCities();
+
   }
 
   onSelect(city: City): void {

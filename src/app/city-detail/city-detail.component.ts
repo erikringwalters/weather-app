@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { City } from '../city';
 import { CityService } from '../city.service'
 import { CurrentWeather } from '../CurrentWeather';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-city-detail',
@@ -15,15 +16,18 @@ export class CityDetailComponent implements OnInit {
   currentWeather: CurrentWeather;
   currentWeatherTemp: number;
 
+
+
   constructor(
     private cityService: CityService,
-
-  ) {
+    private route: ActivatedRoute ) {
       this.currentWeather = new CurrentWeather();
    }
 
   ngOnInit() {
-    this.city = this.cityService.getCity();
+    let name = this.route.snapshot.paramMap.get('name');
+
+    this.city = this.cityService.getCityByName(name);
   }
 
   getCurrentCity(): void {
