@@ -1,8 +1,9 @@
 <div>
-  <h2 id="currentCity"> {{ city.name }} </h2>
+  <h2 id="currentCity"
+  (click)="getCurrentCity()"> {{ city.name }} </h2>
 </div>
 <br/>
-<p>{{ currentWeatherTemp }}</p>
+<h1 id="weatherTemp">{{ currentWeatherTemp }}</h1>
 <button class="btn btn-info"
 (click)="getCurrentTemp()">
 Get Current Temp</button>

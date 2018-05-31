@@ -10,7 +10,7 @@ import { CurrentWeather } from '../CurrentWeather';
 })
 export class CityDetailComponent implements OnInit {
 
-  @Input() city: City;
+  city: City;
 
   currentWeather: CurrentWeather;
   currentWeatherTemp: number;
@@ -19,11 +19,15 @@ export class CityDetailComponent implements OnInit {
     private cityService: CityService,
 
   ) {
-    this.currentWeather = new CurrentWeather();
+      this.currentWeather = new CurrentWeather();
    }
 
   ngOnInit() {
+    this.city = this.cityService.getCity();
+  }
 
+  getCurrentCity(): void {
+    this.city = this.cityService.getCity();
   }
 
   getCurrentTemp(): void{

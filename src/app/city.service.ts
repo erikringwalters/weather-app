@@ -34,13 +34,13 @@ export class CityService {
   }
 
   getUrlByCity(selectedCity: City): string {
-  this.apiKey = this.getApiKey();
-  this.weatherUrl = "http://api.openweathermap.org/data/2.5/weather?q="
-  + selectedCity.name.substr(0, selectedCity.name.indexOf(','))
-  + ",us&appid="
-  + this.apiKey
-  +"&units=Imperial";
-  return this.weatherUrl;
+    this.apiKey = this.getApiKey();
+    this.weatherUrl = "http://api.openweathermap.org/data/2.5/weather?q="
+    + selectedCity.name.substr(0, selectedCity.name.indexOf(','))
+    + ",us&appid="
+    + this.apiKey
+    + "&units=Imperial";
+    return this.weatherUrl;
   }
 
   getCurrentWeather(selectedCity: City): Observable<CurrentWeather> {
