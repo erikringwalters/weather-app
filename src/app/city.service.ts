@@ -28,7 +28,9 @@ export class CityService {
 
   getCityByName(name: string): City {
     let matchedCity: City = _.filter(CITIES, function(city: City) {return city.name.toLowerCase().includes(name.toLowerCase())});
-    if(matchedCity) {return matchedCity[0];}
+    if(matchedCity) {//Return only one city rather than array of cities
+      return matchedCity[0];
+    }
     return null;
   }
 

@@ -28,6 +28,7 @@ export class CityDetailComponent implements OnInit {
     let name = this.route.snapshot.paramMap.get('name');
 
     this.city = this.cityService.getCityByName(name);
+    this.getCurrentTemp();
   }
 
   getCurrentCity(): void {
