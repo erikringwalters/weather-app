@@ -8,6 +8,9 @@ import { CitiesComponent } from './cities/cities.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { CityService } from './city.service';
 import { HttpClientModule }    from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
+
 
 
 @NgModule({
@@ -20,7 +23,9 @@ import { HttpClientModule }    from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
