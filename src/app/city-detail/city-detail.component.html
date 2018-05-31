@@ -1,6 +1,10 @@
 <div>
-  <h2 id="currentCity"
+  <button id="selectCity" class="btn btn-info" routerLink="/cities">Select city</button>
+</div><br/>
+
+<div>
+    <h2 id="currentCity"
   (click)="getCurrentCity()"> {{ city.name }} </h2>
 </div>
 <br/>
-<h1 id="weatherTemp">{{ currentWeatherTemp }}</h1>
+<h1 id="weatherTemp">{{ currentWeatherTemp }}˚</h1>

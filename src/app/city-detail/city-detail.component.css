@@ -1,3 +1,17 @@
+body{
+  text-align: center;
+}
+
+#selectCity {
+  text-align: left;
+  float: left;
+  margin-left: 50px;
+}
+
+#currentCity {
+  text-align: center;
+}
+
 #weatherTemp {
   font-size: 100px;
 }
