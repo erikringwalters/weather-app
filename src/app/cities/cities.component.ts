@@ -30,7 +30,7 @@ export class CitiesComponent implements OnInit {
 
   onSelect(city: City): void {
     this.selectedCity = city;
-    this.url = this.cityService.getUrlByCity(city);
+    // this.url = this.cityService.getUrlByCity(city);
   }
 
   getCities(): void {

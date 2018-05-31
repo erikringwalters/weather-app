@@ -2,4 +2,7 @@
   <h2 id="currentCity"> {{ city.name }} </h2>
 </div>
 <br/>
-<p>*Temp and weather will go here*</p>
+<p>{{ currentWeatherTemp }}</p>
+<button class="btn btn-info"
+(click)="getCurrentTemp()">
+Get Current Temp</button>

@@ -6,9 +6,9 @@ import { AddCityComponent } from './add-city/add-city.component';
 import { CityDetailComponent } from './city-detail/city-detail.component';
 import { CitiesComponent } from './cities/cities.component';
 import { AppRoutingModule } from './/app-routing.module';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { CityService } from './city.service';
-// import { InMemoryDataService }  from './in-memory-data.service';
+import { HttpClientModule }    from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { CityService } from './city.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
