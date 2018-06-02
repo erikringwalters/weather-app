@@ -17,6 +17,8 @@ export class CityService {
   private apiKey = "c4aa1cb6439e378d30ebbd21c64217c6";
   city: City;
   weatherUrl: string;
+  cities = CITIES;
+
 
   constructor(
     private http: HttpClient,
@@ -52,8 +54,22 @@ export class CityService {
     return this.weatherUrl;
   }
 
+  getUrlByCityName(cityName: string): string {
+    this.apiKey = this.getApiKey();
+    this.weatherUrl = "http://api.openweathermap.org/data/2.5/weather?q="
+    + cityName.substr(0, cityName.indexOf(','))
+    + ",us&appid="
+    + this.apiKey
+    + "&units=Imperial";
+    return this.weatherUrl;
+  }
+
   getCurrentWeather(selectedCity: City): Observable<CurrentWeather> {
     return this.http.get<CurrentWeather>(this.getUrlByCity(selectedCity))
+  }
+
+  getCurrentWeatherByName(cityName: string): Observable<CurrentWeather> {
+    return this.http.get<CurrentWeather>(this.getUrlByCityName(cityName))
   }
 
 }

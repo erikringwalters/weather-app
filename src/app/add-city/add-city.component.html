@@ -2,7 +2,7 @@
 <label>
 <input id="addCityInput" [(ngModel)]="city.name" placeholder="City Name">
 </label>
-<button class="btn btn-success">Add to City List</button>
+<button (click)="prepareToAddCity(city.name)" class="btn btn-success">Add to City List</button>
 <br/>
 
 <a routerLink="/cities"><< Go Back</a>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { City } from '../city';
 import { CityService } from '../city.service'
-import { CurrentWeather } from '../CurrentWeather';
+import { CurrentWeather, Weather } from '../CurrentWeather';
 import { CITIES } from '../mock-cities';
 
 @Component({
@@ -28,14 +28,32 @@ export class AddCityComponent implements OnInit {
   }
 
   //make a server call to see if city is valid
-  getCurrentTemp(): void{
-    this.cityService.getCurrentWeather(this.city)
-      .subscribe(currentWeather => this.handleGetCurrentTemp(currentWeather));
+  prepareToAddCity(cityName: string): void {
+    this.cityService.getCurrentWeatherByName(cityName)
+      .subscribe(currentWeather => this.validateCity(currentWeather));
+  }
+
+  validateCity(weather: CurrentWeather): void {
+    if(weather)
+    {
+      this.addCityToListByWeather(weather);
     }
+  }
+
+  addCityToListByWeather(weather: CurrentWeather): void {
+    this.cityService.cities.push(this.buildCity(weather.name, weather.id));
+  }
+
+  buildCity(name: string, id: number): City {
+    let city = new City;
+    city.name = name;
+    city.id = id;
+    return city;
+  }
 
     handleGetCurrentTemp(currentWeather: CurrentWeather): void {
       this.currentWeather = currentWeather;
-    }
+  }
 
 
 }
