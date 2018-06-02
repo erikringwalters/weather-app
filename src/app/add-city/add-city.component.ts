@@ -47,7 +47,7 @@ export class AddCityComponent implements OnInit {
       this.addCityToListByWeather(weather);
     }
     else {
-      this.errorMessage = "Cannot add city";
+      this.errorMessage = "No city found by that name";
     }
   }
 
