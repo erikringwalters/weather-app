@@ -14,8 +14,10 @@ import { CITIES } from '../mock-cities';
 export class AddCityComponent implements OnInit {
 
   city: City;
+  cityName: string;
   currentWeather: CurrentWeather;
   cities = CITIES;
+  errorMessage: string;
 
 
   constructor(
@@ -24,19 +26,28 @@ export class AddCityComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.city = CITIES[0];
+    this.city = null;
+    this.errorMessage = "";
   }
 
   //make a server call to see if city is valid
   prepareToAddCity(cityName: string): void {
+    this.errorMessage = "";
+    if(cityName) {
     this.cityService.getCurrentWeatherByName(cityName)
       .subscribe(currentWeather => this.validateCity(currentWeather));
+    }
+    else {
+      this.errorMessage = "Must enter a city name";
+    }
   }
 
   validateCity(weather: CurrentWeather): void {
-    if(weather)
-    {
+    if(weather) {
       this.addCityToListByWeather(weather);
+    }
+    else {
+      this.errorMessage = "Cannot add city";
     }
   }
 

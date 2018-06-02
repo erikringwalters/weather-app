@@ -6,6 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { url } from 'inspector';
 import { Weather, CurrentWeather } from './CurrentWeather';
 import * as _ from 'underscore';
+import { catchError, map, tap } from 'rxjs/operators';
+
 
 
 @Injectable({
@@ -69,7 +71,26 @@ export class CityService {
   }
 
   getCurrentWeatherByName(cityName: string): Observable<CurrentWeather> {
-    return this.http.get<CurrentWeather>(this.getUrlByCityName(cityName))
+    return this.http
+      .get<CurrentWeather>(this.getUrlByCityName(cityName))
+      .pipe(
+        catchError(this.handleError('getCurrentWeatherByName', null))
+      );
+  }
+
+  handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      console.error(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+
+    }
   }
 
 }

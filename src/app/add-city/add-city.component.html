@@ -1,9 +1,12 @@
 <h2>Add City</h2>
 <label>
-<input id="addCityInput" [(ngModel)]="city.name" placeholder="City Name">
+<input id="addCityInput" [(ngModel)]="cityName" placeholder="City Name">
 </label>
-<button (click)="prepareToAddCity(city.name)" class="btn btn-success">Add to City List</button>
+<button (click)="prepareToAddCity(cityName)" class="btn btn-success">Add to City List</button>
+
+<br/>
+<p id="errorMessage"> {{ errorMessage }} </p>
 <br/>
 
-<a routerLink="/cities"><< Go Back</a>
+<a routerLink="/cities"> << Go Back</a>
 
