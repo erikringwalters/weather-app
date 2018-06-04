@@ -16,8 +16,6 @@ export class CityDetailComponent implements OnInit {
   currentWeather: CurrentWeather;
   currentWeatherTemp: number;
 
-
-
   constructor(
     private cityService: CityService,
     private route: ActivatedRoute ) {
@@ -26,8 +24,8 @@ export class CityDetailComponent implements OnInit {
 
   ngOnInit() {
     let name = this.route.snapshot.paramMap.get('name');
-
-    this.city = this.cityService.getCityByName(name);
+    let id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.city = this.cityService.getCityById(id);
     this.getCurrentTemp();
   }
 
@@ -36,7 +34,7 @@ export class CityDetailComponent implements OnInit {
   }
 
   getCurrentTemp(): void{
-  this.cityService.getCurrentWeather(this.city)
+  this.cityService.getCurrentWeatherById(this.city.id)
     .subscribe(currentWeather => this.handleGetCurrentTemp(currentWeather));
   }
 

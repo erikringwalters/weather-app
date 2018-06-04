@@ -7,7 +7,7 @@ import { CityDetailComponent } from './city-detail/city-detail.component';
 const routes: Routes = [
   { path: 'add-city', component: AddCityComponent },
   { path: 'cities', component: CitiesComponent },
-  { path: 'city/:name', component: CityDetailComponent }
+  { path: 'city/:id', component: CityDetailComponent }
 ]
 
 @NgModule({

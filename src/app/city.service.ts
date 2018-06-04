@@ -38,6 +38,14 @@ export class CityService {
     return null;
   }
 
+  getCityById(id: number): City {
+    let matchedCity: City = _.filter(CITIES, function(city: City) {return city.id == id});
+    if(matchedCity) {//Return only one city rather than array of cities
+      return matchedCity[0];
+    }
+    return null;
+  }
+
   getCities(): Observable<City[]> {
      return of (CITIES);
   }
@@ -49,20 +57,31 @@ export class CityService {
   getUrlByCity(selectedCity: City): string {
     this.apiKey = this.getApiKey();
     this.weatherUrl = "http://api.openweathermap.org/data/2.5/weather?q="
-    + selectedCity.name.substr(0, selectedCity.name.indexOf(','))
-    + ",us&appid="
-    + this.apiKey
-    + "&units=Imperial";
+      + selectedCity.name.substr(0, selectedCity.name.indexOf(','))
+      + ",us&appid="
+      + this.apiKey
+      + "&units=Imperial";
     return this.weatherUrl;
   }
 
   getUrlByCityName(cityName: string): string {
     this.apiKey = this.getApiKey();
     this.weatherUrl = "http://api.openweathermap.org/data/2.5/weather?q="
-    + cityName.substr(0, cityName.indexOf(','))
-    + ",us&appid="
-    + this.apiKey
-    + "&units=Imperial";
+      + cityName.substr(0, cityName.indexOf(','))
+      + ",us&appid="
+      + this.apiKey
+      + "&units=Imperial";
+    return this.weatherUrl;
+  }
+
+  getUrlByCityId(cityId: number): string {
+    this.apiKey = this.getApiKey();
+    this.weatherUrl = "http://api.openweathermap.org/data/2.5/weather"
+      + "?id="
+      + cityId
+      + "&appid="
+      + this.apiKey
+      + "&units=Imperial";
     return this.weatherUrl;
   }
 
@@ -75,6 +94,14 @@ export class CityService {
       .get<CurrentWeather>(this.getUrlByCityName(cityName))
       .pipe(
         catchError(this.handleError('getCurrentWeatherByName', null))
+      );
+  }
+
+  getCurrentWeatherById(cityId: number): Observable<CurrentWeather> {
+    return this.http
+      .get<CurrentWeather>(this.getUrlByCityId(cityId))
+      .pipe(
+        catchError(this.handleError('getCurrentWeatherById', null))
       );
   }
 

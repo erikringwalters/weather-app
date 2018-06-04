@@ -5,7 +5,7 @@
     <li *ngFor="let city of cities"
     [class.selected]="city === selectedCity"
     (click)="onSelect(city)"
-    routerLink="../city/{{ city.name }}">
+    routerLink="../city/{{ city.id }}">
       <span class="badge"> {{ city.id }} </span> {{city.name}}
     </li>
   </ul>
