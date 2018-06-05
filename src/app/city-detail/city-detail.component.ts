@@ -12,6 +12,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class CityDetailComponent implements OnInit {
 
   city: City;
+  cities: City[];
 
   currentWeather: CurrentWeather;
   currentWeatherTemp: number;
@@ -23,6 +24,7 @@ export class CityDetailComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.cities = this.cityService.getCities();
     let name = this.route.snapshot.paramMap.get('name');
     let id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.city = this.cityService.getCityById(id);

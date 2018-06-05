@@ -16,7 +16,7 @@ export class AddCityComponent implements OnInit {
   city: City;
   cityName: string;
   currentWeather: CurrentWeather;
-  cities = CITIES;
+  cities: City[];
   errorMessage: string;
 
 
@@ -26,6 +26,7 @@ export class AddCityComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.cities = this.cityService.getCities();
     this.city = null;
     this.errorMessage = "";
   }

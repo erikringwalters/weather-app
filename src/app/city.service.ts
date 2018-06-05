@@ -51,10 +51,14 @@ export class CityService {
     {
       return this.cities;
     }
-    else {
+    else if(this.getCookie()){
       this.cities = this.getCookie();
+      return this.cities;
     }
-    return this.cities;
+    else {
+      this.cities = CITIES;
+      return this.cities;
+    }
   }
 
   getApiKey(): string {
