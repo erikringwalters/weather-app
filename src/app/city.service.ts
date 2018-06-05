@@ -19,7 +19,7 @@ export class CityService {
   private apiKey = "c4aa1cb6439e378d30ebbd21c64217c6";
   city: City;
   weatherUrl: string;
-  cities = CITIES;
+  cities: City[];
 
   constructor(
     private http: HttpClient,
@@ -46,15 +46,15 @@ export class CityService {
     return null;
   }
 
-  getCities(): Observable<City[]> {
+  getCities(): City[] {
     if(this.cities)
     {
-      return of (this.cities);
+      return this.cities;
     }
     else {
       this.cities = this.getCookie();
     }
-    return of (this.cities);
+    return this.cities;
   }
 
   getApiKey(): string {
@@ -137,7 +137,6 @@ export class CityService {
     }
   }
 
-
   buildCity(name: string, id: number): City {
     let city = new City;
     city.name = name;
@@ -147,7 +146,7 @@ export class CityService {
 
   addCity(name: string, id: number) {
     this.cities.push(this.buildCity(name, id));
-
+     this.saveCookie();
   }
 
   deleteCity(city: City): void {
@@ -155,11 +154,15 @@ export class CityService {
     this.saveCookie();
   }
 
-    //Remove method retrived from:
-  //https://blog.mariusschulz.com/2016/07/16/removing-elements-from-javascript-arrays
+  //Remove method retrived from:
+    //https://blog.mariusschulz.com/2016/07/16/removing-elements-from-javascript-arrays
   remove(array, element): void {
     const index = array.indexOf(element);
     array.splice(index, 1);
+  }
+
+  getCookieData(): City[] {
+    return this.getCookie();
   }
 
 }

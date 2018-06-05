@@ -54,8 +54,7 @@ export class AddCityComponent implements OnInit {
   addCityToListByWeather(weather: CurrentWeather): void {
     let city = this.cityService.buildCity(weather.name, weather.id)
     this.cityService.addCity(city.name, city.id);
-    //TODO: Save cookie
-    this.cityService.saveCookie();
+
   }
 
     handleGetCurrentTemp(currentWeather: CurrentWeather): void {

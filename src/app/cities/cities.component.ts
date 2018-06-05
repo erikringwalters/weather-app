@@ -27,19 +27,15 @@ export class CitiesComponent implements OnInit {
   ngOnInit() {
     //Selects random city out of array
     this.selectedCity = this.cities[Math.floor(Math.random() * this.cities.length)];
-    this.getCities();
-    this.cityService.getCookie();
+    this.cities = this.cityService.getCities();
   }
 
   onSelect(city: City): void {
     this.selectedCity = city;
   }
 
-  getCities(): void {
-    this.cityService.getCities();
-  }
-
   deleteCity(cities: City[], city: City): void {
     this.cityService.deleteCity(city);
   }
+
 }
