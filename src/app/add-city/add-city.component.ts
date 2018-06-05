@@ -52,14 +52,10 @@ export class AddCityComponent implements OnInit {
   }
 
   addCityToListByWeather(weather: CurrentWeather): void {
-    this.cityService.cities.push(this.buildCity(weather.name, weather.id));
-  }
-
-  buildCity(name: string, id: number): City {
-    let city = new City;
-    city.name = name;
-    city.id = id;
-    return city;
+    let city = this.cityService.buildCity(weather.name, weather.id)
+    this.cityService.addCity(city.name, city.id);
+    //TODO: Save cookie
+    this.cityService.saveCookie();
   }
 
     handleGetCurrentTemp(currentWeather: CurrentWeather): void {

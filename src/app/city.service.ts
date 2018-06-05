@@ -3,10 +3,10 @@ import { City } from './city';
 import { CITIES } from './mock-cities';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-// import { url } from 'inspector';
 import { Weather, CurrentWeather } from './CurrentWeather';
 import * as _ from 'underscore';
 import { catchError, map, tap } from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -21,9 +21,9 @@ export class CityService {
   weatherUrl: string;
   cities = CITIES;
 
-
   constructor(
     private http: HttpClient,
+    private cookieService: CookieService,
   ) { }
 
   getCity(): City {
@@ -47,7 +47,14 @@ export class CityService {
   }
 
   getCities(): Observable<City[]> {
-     return of (CITIES);
+    if(this.cities)
+    {
+      return of (this.cities);
+    }
+    else {
+      this.cities = this.getCookie();
+    }
+    return of (this.cities);
   }
 
   getApiKey(): string {
@@ -116,8 +123,43 @@ export class CityService {
 
       // Let the app keep running by returning an empty result.
       return of(result as T);
-
     }
+  }
+
+  saveCookie(): void {
+    let cityList = JSON.stringify(this.getCities());
+    this.cookieService.set("cityList", cityList);
+  }
+
+  getCookie(): City[] {
+    if(this.cookieService.check("cityList")) {
+      return JSON.parse(this.cookieService.get("cityList"));
+    }
+  }
+
+
+  buildCity(name: string, id: number): City {
+    let city = new City;
+    city.name = name;
+    city.id = id;
+    return city;
+  }
+
+  addCity(name: string, id: number) {
+    this.cities.push(this.buildCity(name, id));
+
+  }
+
+  deleteCity(city: City): void {
+    this.remove(this.cities, city);
+    this.saveCookie();
+  }
+
+    //Remove method retrived from:
+  //https://blog.mariusschulz.com/2016/07/16/removing-elements-from-javascript-arrays
+  remove(array, element): void {
+    const index = array.indexOf(element);
+    array.splice(index, 1);
   }
 
 }

@@ -6,11 +6,13 @@
     [class.selected]="city === selectedCity"
     (click)="onSelect(city)"
     routerLink="../city/{{ city.id }}">
+        <button class="delete btn btn-xs btn-danger" (click)="deleteCity(cities, selectedCity)">x</button>
       <span class="badge"> {{ city.id }} </span> {{city.name}}
+
     </li>
   </ul>
 </div>
-<div id="addCityDiv" >
+<div id="addCityDiv">
   <button class="btn btn-warning" routerLink="/add-city">
       Add city
     </button>

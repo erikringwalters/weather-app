@@ -28,15 +28,18 @@ export class CitiesComponent implements OnInit {
     //Selects random city out of array
     this.selectedCity = this.cities[Math.floor(Math.random() * this.cities.length)];
     this.getCities();
-
+    this.cityService.getCookie();
   }
 
   onSelect(city: City): void {
     this.selectedCity = city;
-    // this.url = this.cityService.getUrlByCity(city);
   }
 
   getCities(): void {
     this.cityService.getCities();
+  }
+
+  deleteCity(cities: City[], city: City): void {
+    this.cityService.deleteCity(city);
   }
 }
