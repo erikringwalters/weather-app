@@ -1,16 +1,23 @@
 <!-- <app-city-detail [city]="selectedCity"></app-city-detail> -->
 
 <div>
-  <ul class="cities">
-    <li *ngFor="let city of cities"
-    [class.selected]="city === selectedCity"
-    (click)="onSelect(city)"
-    routerLink="../city/{{ city.id }}">
-        <button class="delete btn btn-xs btn-danger" (click)="deleteCity(cities, selectedCity)">x</button>
-      <span class="badge"> {{ city.id }} </span> {{city.name}}
+  <!-- <ul class="cities"> -->
+  <table class="cities">
+    <tr *ngFor="let city of cities"
+    [class.selected]="city === selectedCity">
 
-    </li>
-  </ul>
+    <td (click)="onSelect(city)"
+    routerLink="../city/{{ city.id }}">
+      {{city.name}}
+    </td>
+
+    <td>
+      <button class="delete btn btn-xs btn-danger" (click)="deleteCity(city.id)">x</button>
+    </td>
+
+  </tr>
+  <!-- </ul> -->
+</table>
 </div>
 <div id="addCityDiv">
   <button class="btn btn-warning" routerLink="/add-city">

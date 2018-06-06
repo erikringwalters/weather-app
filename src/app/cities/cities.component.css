@@ -11,7 +11,7 @@
   color: white;
 }
 
-.cities li {
+.cities tr {
   cursor: pointer;
   position: relative;
   left: 0;
@@ -21,11 +21,11 @@
   height: 1.6em;
   border-radius: 4px;
 }
-.cities li.selected:hover {
+.cities tr.selected:hover {
   background-color: #BBD8DC !important;
   color: white;
 }
-.cities li:hover {
+.cities tr:hover {
   color: #607D8B;
   background-color: #DDD;
   left: .1em;
@@ -33,6 +33,9 @@
 .cities .text {
   position: relative;
   top: -3px;
+}
+.cities tr {
+  margin-top: 10px;
 }
 .cities .badge {
   display: inline-block;
@@ -48,6 +51,13 @@
   margin-right: .8em;
   border-radius: 4px 0 0 4px;
 }
+tr {
+  padding: 10px;
+  margin-top: 10px;
+}
 #addCityDiv {
   float: left;
+}
+.delete {
+  display: inline-block;
 }

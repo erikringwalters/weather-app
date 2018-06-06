@@ -5,6 +5,8 @@ import { CityService } from '../city.service';
 import { WeatherService } from '../weather.service';
 import { switchMap } from 'rxjs/operators';
 import { ParamMap, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-cities',
@@ -22,7 +24,9 @@ export class CitiesComponent implements OnInit {
 
   constructor(
     private cityService: CityService,
-    private weatherService: WeatherService) { }
+    private weatherService: WeatherService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     //Selects random city out of array
@@ -34,8 +38,11 @@ export class CitiesComponent implements OnInit {
     this.selectedCity = city;
   }
 
-  deleteCity(cities: City[], city: City): void {
-    this.cityService.deleteCity(city);
+  deleteCity(cityId: number): void {
+    this.cityService.deleteCity(cityId);
+    this.cities = this.cityService.getCities();
+    //Reroute to cities
+    this.router.navigate( ['../cities'] )
   }
 
 }

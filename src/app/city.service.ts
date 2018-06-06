@@ -78,7 +78,8 @@ export class CityService {
   getUrlByCityName(cityName: string): string {
     this.apiKey = this.getApiKey();
     this.weatherUrl = "http://api.openweathermap.org/data/2.5/weather?q="
-      + cityName.substr(0, cityName.indexOf(','))
+    //Changed comma delimitation
+      + cityName//.substr(0, cityName.indexOf(','))
       + ",us&appid="
       + this.apiKey
       + "&units=Imperial";
@@ -153,8 +154,8 @@ export class CityService {
      this.saveCookie();
   }
 
-  deleteCity(city: City): void {
-    _.without(this.getCities(), city);
+  deleteCity(cityId: number): void {
+    this.cities = _.filter(this.getCities(), function(cityFromCities: City) { return cityFromCities.id != cityId });
     this.saveCookie();
   }
 
