@@ -39,7 +39,7 @@ export class CityService {
   }
 
   getCityById(id: number): City {
-    let matchedCity: City = _.filter(CITIES, function(city: City) {return city.id == id});
+    let matchedCity: City = _.filter(this.getCities(), function(city: City) {return city.id == id});
     if(matchedCity) {//Return only one city rather than array of cities
       return matchedCity[0];
     }
@@ -149,20 +149,13 @@ export class CityService {
   }
 
   addCity(name: string, id: number) {
-    this.cities.push(this.buildCity(name, id));
+    this.getCities().push(this.buildCity(name, id));
      this.saveCookie();
   }
 
   deleteCity(city: City): void {
-    this.remove(this.cities, city);
+    _.without(this.getCities(), city);
     this.saveCookie();
-  }
-
-  //Remove method retrived from:
-    //https://blog.mariusschulz.com/2016/07/16/removing-elements-from-javascript-arrays
-  remove(array, element): void {
-    const index = array.indexOf(element);
-    array.splice(index, 1);
   }
 
   getCookieData(): City[] {

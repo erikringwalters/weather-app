@@ -3,6 +3,7 @@ import { City } from '../city';
 import { CityService } from '../city.service'
 import { CurrentWeather, Weather } from '../CurrentWeather';
 import { CITIES } from '../mock-cities';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-city',
@@ -16,19 +17,19 @@ export class AddCityComponent implements OnInit {
   city: City;
   cityName: string;
   currentWeather: CurrentWeather;
-  cities: City[];
+
   errorMessage: string;
 
 
   constructor(
     private cityService: CityService,
-
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.cities = this.cityService.getCities();
     this.city = null;
     this.errorMessage = "";
+    ;
   }
 
   //make a server call to see if city is valid
@@ -55,11 +56,15 @@ export class AddCityComponent implements OnInit {
   addCityToListByWeather(weather: CurrentWeather): void {
     let city = this.cityService.buildCity(weather.name, weather.id)
     this.cityService.addCity(city.name, city.id);
-
+    this.routeToAddedCity(city);
   }
 
     handleGetCurrentTemp(currentWeather: CurrentWeather): void {
       this.currentWeather = currentWeather;
+  }
+
+  routeToAddedCity(city: City) {
+    this.router.navigate( ['../city/', city.id] )
   }
 
 
