@@ -32,6 +32,20 @@ export class CitiesComponent implements OnInit {
     //Selects random city out of array
     this.selectedCity = this.cities[Math.floor(Math.random() * this.cities.length)];
     this.cities = this.cityService.getCities();
+    if(!this.canAddCity()) {
+      document.getElementById("addCityButton").className = "hide";
+    }
+  }
+
+  canAddCity(): boolean {
+    if(this.cityService.arrayIsMaxSize(
+      this.cityService.getCities(),
+       this.cityService.maxSize)) {
+        return false;
+       }
+    else {
+      return true;
+    }
   }
 
   onSelect(city: City): void {

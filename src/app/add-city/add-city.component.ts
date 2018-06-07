@@ -35,7 +35,13 @@ export class AddCityComponent implements OnInit {
   //make a server call to see if city is valid
   prepareToAddCity(cityName: string): void {
     this.errorMessage = "";
-    if(cityName) {
+    //if too many cities
+    if(this.cityService.arrayIsMaxSize(
+      this.cityService.getCities(),
+       this.cityService.maxSize)) {
+        this.errorMessage = "Cannot add city: too many cities";
+       }
+    else if(cityName) {
     this.cityService.getCurrentWeatherByName(cityName)
       .subscribe(currentWeather => this.validateCity(currentWeather));
     }

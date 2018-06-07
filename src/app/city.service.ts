@@ -18,11 +18,14 @@ export class CityService {
   city: City;
   weatherUrl: string;
   cities: City[];
+  maxSize: number;
 
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
-  ) { }
+  ) {
+    this.maxSize = 100;
+  }
 
   getCity(): City {
     return this.city;
@@ -131,7 +134,7 @@ export class CityService {
 
   saveCookie(): void {
     let cityList = JSON.stringify(this.getCities());
-    this.cookieService.set("cityList", cityList);
+    this.cookieService.set("cityList", cityList, 365);
   }
 
   getCookie(): City[] {
@@ -148,8 +151,10 @@ export class CityService {
   }
 
   addCity(name: string, id: number) {
-    if(this.cityExists(id))
-    {return;}
+    //duplicate found
+    if(this.cityExists(id)){
+      return;
+    }
     this.getCities().push(this.buildCity(name, id));
     this.saveCookie();
   }
@@ -170,6 +175,14 @@ export class CityService {
 
   getCookieData(): City[] {
     return this.getCookie();
+  }
+
+  arrayIsMaxSize(array: any[], maxSize): boolean {
+    if(array.length >= maxSize)
+    {
+      return true;
+    }
+    else {return false;}
   }
 
 }
