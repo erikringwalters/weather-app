@@ -8,8 +8,6 @@ import * as _ from 'underscore';
 import { catchError, map, tap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -150,8 +148,19 @@ export class CityService {
   }
 
   addCity(name: string, id: number) {
+    if(this.cityExists(id))
+    {return;}
     this.getCities().push(this.buildCity(name, id));
-     this.saveCookie();
+    this.saveCookie();
+  }
+
+  cityExists(id: number): boolean {
+    if(_.filter(this.getCities(), function(cityFromCities: City) { return cityFromCities.id == id }).length > 0) {
+      return true;
+    }
+    else {
+    return false;
+    }
   }
 
   deleteCity(cityId: number): void {
