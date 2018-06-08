@@ -3,8 +3,9 @@
 </div><br/>
 
 <div>
-    <h2 id="currentCity"
-  (click)="getCurrentCity()"> {{ city.name }} </h2>
+    <div id="currentCity"
+  (click)="getCurrentCity()"
+  *ngIf="city"> {{ city.name }} </div>
 </div>
 <br/>
 <h1 id="weatherTemp">{{ currentWeatherTemp }}˚</h1>

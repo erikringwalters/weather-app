@@ -19,12 +19,13 @@ export class CityService {
   weatherUrl: string;
   cities: City[];
   maxSize: number;
+  lastUsedCity: City;
 
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
   ) {
-    this.maxSize = 100;
+    this.maxSize = 5;
   }
 
   getCity(): City {
@@ -52,8 +53,8 @@ export class CityService {
     {
       return this.cities;
     }
-    else if(this.getCookie()){
-      this.cities = this.getCookie();
+    else if(this.getCitiesCookie()){
+      this.cities = this.getCitiesCookie();
       return this.cities;
     }
     else {
@@ -69,7 +70,7 @@ export class CityService {
   getUrlByCity(selectedCity: City): string {
     this.apiKey = this.getApiKey();
     this.weatherUrl = "http://api.openweathermap.org/data/2.5/weather?q="
-      + selectedCity.name.substr(0, selectedCity.name.indexOf(','))
+      + selectedCity
       + ",us&appid="
       + this.apiKey
       + "&units=Imperial";
@@ -79,8 +80,7 @@ export class CityService {
   getUrlByCityName(cityName: string): string {
     this.apiKey = this.getApiKey();
     this.weatherUrl = "http://api.openweathermap.org/data/2.5/weather?q="
-    //Changed comma delimitation
-      + cityName//.substr(0, cityName.indexOf(','))
+      + cityName
       + ",us&appid="
       + this.apiKey
       + "&units=Imperial";
@@ -132,14 +132,25 @@ export class CityService {
     }
   }
 
-  saveCookie(): void {
+  saveCitiesCookie(): void {
     let cityList = JSON.stringify(this.getCities());
     this.cookieService.set("cityList", cityList, 365);
   }
 
-  getCookie(): City[] {
+  saveLastUsedCityCookie(): void {
+    let lastUsedCity = JSON.stringify(this.lastUsedCity);
+    this.cookieService.set("lastUsedCity", lastUsedCity, 365)
+  }
+
+  getCitiesCookie(): City[] {
     if(this.cookieService.check("cityList")) {
       return JSON.parse(this.cookieService.get("cityList"));
+    }
+  }
+
+  getLastUsedCityCookie(): City {
+    if(this.cookieService.check("lastUsedCity")) {
+      return JSON.parse(this.cookieService.get("lastUsedCity"));
     }
   }
 
@@ -156,7 +167,7 @@ export class CityService {
       return;
     }
     this.getCities().push(this.buildCity(name, id));
-    this.saveCookie();
+    this.saveCitiesCookie();
   }
 
   cityExists(id: number): boolean {
@@ -170,11 +181,7 @@ export class CityService {
 
   deleteCity(cityId: number): void {
     this.cities = _.filter(this.getCities(), function(cityFromCities: City) { return cityFromCities.id != cityId });
-    this.saveCookie();
-  }
-
-  getCookieData(): City[] {
-    return this.getCookie();
+    this.saveCitiesCookie();
   }
 
   arrayIsMaxSize(array: any[], maxSize): boolean {
@@ -183,6 +190,10 @@ export class CityService {
       return true;
     }
     else {return false;}
+  }
+
+  setLastUsedCity(city: City): void {
+    this.lastUsedCity = city;
   }
 
 }

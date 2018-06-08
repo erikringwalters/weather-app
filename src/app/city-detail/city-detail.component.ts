@@ -11,6 +11,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class CityDetailComponent implements OnInit {
 
+  [x: string]: any;
   city: City;
   cities: City[];
 
@@ -19,6 +20,7 @@ export class CityDetailComponent implements OnInit {
 
   constructor(
     private cityService: CityService,
+    private router: Router,
     private route: ActivatedRoute ) {
       this.currentWeather = new CurrentWeather();
    }
@@ -26,8 +28,42 @@ export class CityDetailComponent implements OnInit {
   ngOnInit() {
     this.cities = this.cityService.getCities();
     let id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.city = this.cityService.getCityById(id);
+    //Get from cookie if id is undefined
+    if(Number.isNaN(id)) {
+      let continueProcessing = this.handleNaNId(id);
+      if(!continueProcessing) {
+        return;
+      }
+    }
+    else {
+      this.city = this.cityService.getCityById(id);
+    }
+
     this.getCurrentTemp();
+    this.cityService.setLastUsedCity(this.city);
+    this.cityService.saveLastUsedCityCookie();
+  }
+
+
+  handleNaNId(id: number): boolean {
+      //last used city is not null and last used city is in cities array
+      if(this.cityService.lastUsedCity
+        && this.cityService.cityExists(id)) {
+        this.city = this.cityService.lastUsedCity;
+        return true;
+      }
+      //if cookie is not null and cookie value is in cities array
+      else if(this.cityService.getLastUsedCityCookie()
+      && this.cityService.cityExists(id)) {
+        this.city = this.cityService.getLastUsedCityCookie();
+        return true;
+      }
+      //both lastUsedCity and cookie are null or not in cities list
+      else {
+        this.router.navigate( ['../cities'] );
+        return false;
+      }
+
   }
 
   getCurrentCity(): void {
@@ -42,6 +78,12 @@ export class CityDetailComponent implements OnInit {
   handleGetCurrentTemp(currentWeather: CurrentWeather): void {
     this.currentWeather = currentWeather;
     this.currentWeatherTemp = currentWeather.main.temp;
+  }
+
+  getLastUsedCity(): City {
+    if(this.cityService.getLastUsedCityCookie()) {
+      return this.cityService.getLastUsedCityCookie();
+    }
   }
 
 }

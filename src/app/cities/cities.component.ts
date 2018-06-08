@@ -17,7 +17,6 @@ import { Router } from '@angular/router';
 export class CitiesComponent implements OnInit {
 
   route: ActivatedRoute;
-  cities = CITIES;
 
   selectedCity: City;
   url: string;
@@ -28,13 +27,14 @@ export class CitiesComponent implements OnInit {
     private router: Router
   ) { }
 
+  cities(): City[] {
+    return this.cityService.getCities();
+  }
+
   ngOnInit() {
     //Selects random city out of array
-    this.selectedCity = this.cities[Math.floor(Math.random() * this.cities.length)];
-    this.cities = this.cityService.getCities();
-    if(!this.canAddCity()) {
-      document.getElementById("addCityButton").className = "hide";
-    }
+    this.selectedCity = this.cityService.getCities()
+    [Math.floor(Math.random() * this.cityService.getCities().length)];
   }
 
   canAddCity(): boolean {
@@ -54,7 +54,6 @@ export class CitiesComponent implements OnInit {
 
   deleteCity(cityId: number): void {
     this.cityService.deleteCity(cityId);
-    this.cities = this.cityService.getCities();
     //Reroute to cities
     this.router.navigate( ['../cities'] )
   }
