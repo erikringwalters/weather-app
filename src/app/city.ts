@@ -3,4 +3,6 @@ export class City {
   name: string;
   weatherId: number;
   icon: string;
+  //TODO: get description
+  description: string;
 }

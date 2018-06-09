@@ -154,21 +154,22 @@ export class CityService {
     }
   }
 
-  buildCity(name: string, id: number, weatherId: number, icon: string): City {
+  buildCity(name: string, id: number, weatherId: number, icon: string, description: string): City {
     let city = new City;
     city.name = name;
     city.id = id;
     city.weatherId = weatherId;
     city.icon = icon;
+    city.description = description;
     return city;
   }
 
-  addCity(name: string, id: number, weatherId: number, icon: string) {
+  addCity(name: string, id: number, weatherId: number, icon: string, description: string) {
     //duplicate found
     if(this.cityExists(id)){
       return;
     }
-    this.getCities().push(this.buildCity(name, id, weatherId, icon));
+    this.getCities().push(this.buildCity(name, id, weatherId, icon, description));
     this.saveCitiesCookie();
   }
 

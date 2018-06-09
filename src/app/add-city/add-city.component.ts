@@ -60,8 +60,8 @@ export class AddCityComponent implements OnInit {
   }
 
   addCityToListByWeather(weather: CurrentWeather): void {
-    let city = this.cityService.buildCity(weather.name, weather.id, weather.weather[0].id, weather.weather[0].icon)
-    this.cityService.addCity(city.name, city.id, city.weatherId, city.icon);
+    let city = this.cityService.buildCity(weather.name, weather.id, weather.weather[0].id, weather.weather[0].icon, weather.weather[0].description)
+    this.cityService.addCity(city.name, city.id, city.weatherId, city.icon, city.description);
     this.routeToAddedCity(city);
   }
 
