@@ -1,11 +1,13 @@
+
 <div>
   <button id="selectCity" class="btn btn-info" routerLink="/cities">Select city</button>
 </div><br/>
 
 <div>
-    <div id="currentCity"
+    <h2 id="currentCity"
   (click)="getCurrentCity()"
-  *ngIf="city"> {{ city.name }} </div>
+  *ngIf="city"> {{ city.name }} </h2>
 </div>
 <br/>
 <h1 id="weatherTemp">{{ currentWeatherTemp }}˚</h1>
+<i [ngClass]="getWeatherClass(city)"></i>

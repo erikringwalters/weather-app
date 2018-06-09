@@ -86,4 +86,8 @@ export class CityDetailComponent implements OnInit {
     }
   }
 
+  getWeatherClass(city: City): string {
+    return 'owf owf-' + city.weatherId + ' owf-5x';
+  }
+
 }
