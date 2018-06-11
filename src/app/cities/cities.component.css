@@ -1,3 +1,14 @@
+h1 {
+  display: inline-block;
+ }
+
+ .fa-plus {
+  margin: 20px;
+  float: right;
+
+  font-size: 20px;
+ }
+
 .cities{
   float: left;
   text-align: left;
@@ -6,16 +17,16 @@
   padding: 0;
   width: 15em;
 }
-.selected {
+/* .selected {
   background-color: #CFD8DC !important;
   color: white;
-}
+} */
 
 .cities tr {
   cursor: pointer;
   position: relative;
   left: 0;
-  background-color: #EEE;
+  background-color: #FFF;
   margin: .5em;
   padding: .3em 0;
   height: 1.6em;

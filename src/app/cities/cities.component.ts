@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { City } from '../city';
-import { CITIES } from '../mock-cities'
 import { CityService } from '../city.service';
 import { WeatherService } from '../weather.service';
-import { switchMap } from 'rxjs/operators';
 import { ParamMap, ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
@@ -32,18 +30,17 @@ export class CitiesComponent implements OnInit {
   }
 
   ngOnInit() {
-    //Selects random city out of array
+    // Selects random city out of array
     this.selectedCity = this.cityService.getCities()
     [Math.floor(Math.random() * this.cityService.getCities().length)];
   }
 
   canAddCity(): boolean {
-    if(this.cityService.arrayIsMaxSize(
+    if (this.cityService.arrayIsMaxSize(
       this.cityService.getCities(),
        this.cityService.maxSize)) {
         return false;
-       }
-    else {
+       } else {
       return true;
     }
   }
@@ -54,8 +51,8 @@ export class CitiesComponent implements OnInit {
 
   deleteCity(cityId: number): void {
     this.cityService.deleteCity(cityId);
-    //Reroute to cities
-    this.router.navigate( ['../cities'] )
+    // Reroute to cities
+    this.router.navigate( ['../cities'] );
   }
 
 }

@@ -1,6 +1,14 @@
 <!-- <app-city-detail [city]="selectedCity"></app-city-detail> -->
 
 <div>
+  <div class="row">
+    <h1>Cities</h1>
+    <i class="fas fa-plus"
+    title="Add city"
+    *ngIf="canAddCity()"
+    id="addCityButton"
+    routerLink="/add-city"></i>
+  </div>
   <!-- <ul class="cities"> -->
   <table class="cities">
     <tr *ngFor="let city of cities()"
@@ -12,15 +20,11 @@
     </td>
 
     <td>
-      <button class="delete btn btn-xs btn-danger" (click)="deleteCity(city.id)">x</button>
+      <button class="delete btn btn-xs btn-danger"
+      (click)="deleteCity(city.id)">x</button>
     </td>
 
-  </tr>
+    </tr>
   <!-- </ul> -->
-</table>
-</div>
-<div id="addCityDiv">
-  <button *ngIf="canAddCity()" id="addCityButton" class="btn btn-warning" routerLink="/add-city">
-      Add city
-    </button>
+  </table>
 </div>

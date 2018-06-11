@@ -1,12 +1,24 @@
-<h2>Add City</h2>
-<label>
-<input id="addCityInput" [(ngModel)]="cityName" placeholder="City Name">
-</label>
-<button (click)="prepareToAddCity(cityName)" class="btn btn-success">Add to City List</button>
+<div class="row heading">
+  <div class="col-md-3">
+      <i class="fas fa-arrow-left"
+      routerLink="/cities"></i>
+  </div>
+  <div class="col-md-6 col-sm-6">
+    <p id="heading">Add City</p>
+  </div>
+  <div class="col-md-3 col-sm-3"></div>
+</div>
+
+<div class="row">
+    <label>
+      <input id="addCityInput" [(ngModel)]="cityName" placeholder="City Name">
+    </label>
+
+    <i class="fas fa-check" (click)="prepareToAddCity(cityName)"></i>
+</div>
 
 <br/>
 <p id="errorMessage"> {{ errorMessage }} </p>
 <br/>
 
-<a routerLink="/cities"> << Go Back</a>
 
