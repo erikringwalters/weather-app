@@ -21,7 +21,6 @@ export class CitiesComponent implements OnInit {
 
   constructor(
     private cityService: CityService,
-    private weatherService: WeatherService,
     private router: Router
   ) { }
 
@@ -50,6 +49,7 @@ export class CitiesComponent implements OnInit {
   }
 
   deleteCity(cityId: number): void {
+    confirm('Are you sure you want to delete this city?');
     this.cityService.deleteCity(cityId);
     // Reroute to cities
     this.router.navigate( ['../cities'] );

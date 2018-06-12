@@ -1,6 +1,6 @@
 #heading {
   margin-top: 10px;
-  font-size: 30px;
+  /* font-size: 30px; */ /*seems to be causing back button bug*/
   margin-right: 55px;
 }
 
